@@ -1,0 +1,28 @@
+# create an astro project
+  npm create astro@latest
+
+## options
+  - name -> ./
+  - include sample files
+  - install dependencies -> yes
+  - typescript -> yes -> strict (recommended)
+  - git repository (optional)
+  - npm i (if failed)
+
+# js/ts in .astro
+  in the beginning of the file put
+  ---
+  ---
+
+# add tailwind
+  npx astro add --help
+  npx astro add tailwind
+
+# add preact
+  npx astro add preact
+
+# add interactive component
+<Counter client:visible/>
+
+# persist state through pages
+<Counter transition:persist client:visible />

@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLaunchBy, getLatestLaunches } from "../../services/spacex";
+
+const { id } = Astro.params;
+
+// esto para el hybrid
+export const prerender = false;
+
+let launch;
+if (id) {
+  launch = await getLaunchBy({ id });
+}
+
+// generacion de paginas de manera estatica
+// export async function getStaticPaths() {
+//   const launches = await getLatestLaunches();
+
+//   return launches.map((launch) => ({
+//     params: { id: launch.id },
+//   }));
+// }
+
+// esto si es hybrid o server
+if (Astro.cookies.get("user")) {
+  console.log("user logged");
+} else {
+  console.log("user not logged");
+}
+---
+
+<Layout title=`Lanzamiento ${launch.id}`>
+  <article class="flex gap-y-4 flex-col">
+    <img
+      class="w-52 h-auto"
+      src={launch?.links?.patch.small}
+      alt={launch?.name}
+    />
+    <h2 class="text-4xl text-white font-bold">
+      Launch #{launch?.flight_number}
+    </h2>
+    <p class="text-lg">{launch?.details}</p>
+    {launch.id}
+  </article>
+</Layout>
